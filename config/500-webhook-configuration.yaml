@@ -49,6 +49,23 @@ webhooks:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
+  name: validation.webhook.deployment.knative-samples.knative.dev
+  labels:
+    samples.knative.dev/release: devel
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook
+      namespace: knative-samples
+  failurePolicy: Fail
+  sideEffects: None
+  name: validation.webhook.deployment.knative-samples.knative.dev
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
   name: config.webhook.knative-samples.knative.dev
   labels:
     serving.knative.dev/release: devel
